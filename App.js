@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
 
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+
+import Home from "./screens/Home";
+import About from "./screens/About";
+import MessageBoard from "./screens/MessageBoard";
+import Blog from "./screens/Blog";
+import Contact from "./screens/Contact";
+import Privacy from "./screens/Privacy";
+import Resources from "./screens/Resources";
+import StudentNews from "./screens/StudentNews";
+
+const Drawer = createDrawerNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Drawer.Navigator useLegacyImplementation={true} initialRouteName="Home">
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="About" component={About} />
+        <Drawer.Screen name="Message Board" component={MessageBoard} />
+        <Drawer.Screen name="Blog" component={Blog} />
+        <Drawer.Screen name="Contact" component={Contact} />
+        <Drawer.Screen name="Privacy" component={Privacy} />
+        <Drawer.Screen name="Resources" component={Resources} />
+        <Drawer.Screen name="Student News" component={StudentNews} />
+      </Drawer.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
