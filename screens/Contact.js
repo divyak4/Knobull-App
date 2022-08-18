@@ -11,6 +11,7 @@ function Contact() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  //messageMaxHeight set ONCE at launch
   const [messageMaxHeight, setMessageMaxHeight] = useState(-1);
 
   const callback = useCallback((height) => {
