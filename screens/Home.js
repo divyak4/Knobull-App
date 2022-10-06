@@ -1,7 +1,17 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, SafeAreaView } from "react-native";
+import { View, StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Linking } from "react-native";
 import CustomText from "../components/CustomText";
 import CONSTANTS from "../Constants";
+
+const URL1 = 'http://www.articlegeek.com/health/disease_articles/8955-diabeticfatspir.htm'
+const URL2 = 'http://www.articlegeek.com/finance/credit_card_debt_articles/get-credit-card-tips.htm';
+const URL3 = 'http://www.articlegeek.com/home/family_articles/66-anniversarypart.htm';
+const URLSearched = 'http://refseek.com/search?q='
+
+const openLink = async (url) => {
+  await Linking.canOpenURL(url);
+  Linking.openURL(url);
+}
 
 
 function Home() {
@@ -18,7 +28,13 @@ function Home() {
               value={query}
               placeholder={'search here...'}
             />
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                if (query) {
+                  openLink(URLSearched + query)
+                }
+              }}
+            >
               <Image
                 source={require('./images/search.png')}
                 style={styles.imageSearch}
@@ -30,7 +46,12 @@ function Home() {
           <CustomText style={styles.textNews}>News</CustomText>
           <View style={styles.containerNews}>
             {/* item 1 */}
-            <TouchableOpacity style={styles.itemNews}>
+            <TouchableOpacity 
+              style={styles.itemNews}
+              onPress={() => {
+                openLink(URL1);
+              }}  
+            >
               <View style={styles.containerImage}>
                 <Image
                   source={require('./images/HomePage1.png')}
@@ -43,7 +64,12 @@ function Home() {
               </View>
             </TouchableOpacity>
             {/* item 2 */}
-            <TouchableOpacity style={styles.itemNews}>
+            <TouchableOpacity 
+              style={styles.itemNews}
+              onPress={() => {
+                openLink(URL2);
+              }}   
+            >
               <View style={styles.containerImage}>
                 <Image
                   source={require('./images/HomePage2.png')}
@@ -56,7 +82,12 @@ function Home() {
               </View>
             </TouchableOpacity>
             {/* item 3 */}
-            <TouchableOpacity style={styles.itemNews}>
+            <TouchableOpacity 
+              style={styles.itemNews}
+              onPress={() => {
+                openLink(URL3);
+              }}   
+            >
               <View style={styles.containerImage}>
                 <Image
                   source={require('./images/HomePage3.png')}

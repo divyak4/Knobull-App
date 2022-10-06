@@ -1,20 +1,45 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity, FlatList, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, FlatList, View, Linking } from "react-native";
 import CustomText from "../components/CustomText";
 import CONSTANTS from '../Constants';
 
-const DATA = [
-  {title: 'Art'}, {title: 'Business'}, {title: 'Computers'}, {title: 'Finance'}, 
-  {title: 'Games'}, {title: 'Health'}, {title: 'Home Life'}, {title: 'Internet'}, 
-  {title: 'Law'}, {title: 'News'}, {title: 'Recreation'}, {title: 'References'}, 
-  {title: 'Society'}, {title: 'Sports'}, {title: 'Self Improvement'}, {title: ''}
+const ARTICLES = [
+  {title: 'Art', link: 'http://www.articlegeek.com/arts/index.htm'}, 
+  {title: 'Business', link: 'http://www.articlegeek.com/business/index.htm'}, 
+  {title: 'Computers', link: 'http://www.articlegeek.com/computers/index.htm'}, 
+  {title: 'Finance', link: 'http://www.articlegeek.com/finance/index.htm'}, 
+  {title: 'Games', link: 'http://www.articlegeek.com/games/index.htm'}, 
+  {title: 'Health', link: 'http://www.articlegeek.com/health/index.htm'}, 
+  {title: 'Home Life', link: 'http://www.articlegeek.com/home/index.htm'}, 
+  {title: 'Internet', link: 'http://www.articlegeek.com/internet/index.htm'}, 
+  {title: 'Law', link: 'http://www.articlegeek.com/law/index.htm'}, 
+  {title: 'News', link: 'http://www.articlegeek.com/news/index.htm'}, 
+  {title: 'Recreation', link: 'http://www.articlegeek.com/recreation/index.htm'}, 
+  {title: 'References', link: 'http://www.articlegeek.com/reference/education_articles.htm'}, 
+  {title: 'Self Improvement', link: 'http://www.articlegeek.com/self-improvement/index.htm'}, 
+  {title: 'Society', link: 'http://www.articlegeek.com/society/index.htm'}, 
+  {title: 'Sports', link: 'http://www.articlegeek.com/sports/index.htm'}, 
+  {title: '', link: ''}
 ]
+
+const TWITTER_LINK = 'https://mobile.twitter.com/knobullit';
 
 function flatListHeaderComponent() {
   return (
     <View style={styles.viewHeader}>
       <CustomText style={styles.textStudentNews}>Student News</CustomText>
-      <TouchableOpacity style={styles.buttonTwitter}>
+      <TouchableOpacity 
+        style={styles.buttonTwitter}
+        onPress={async() => {
+          await Linking.canOpenURL(TWITTER_LINK)
+          .then(function() {
+            Linking.openURL(TWITTER_LINK);
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+        }}
+      >
         <CustomText style={styles.textButton}>Check student news on our Twitter!</CustomText>
         <Image
           source={require('./images/twitter.png')}
@@ -40,10 +65,21 @@ function StudentNews() {
       ListHeaderComponent={flatListHeaderComponent}
       ListFooterComponent={flatListFooterComponent}
       numColumns={2}
-      data={DATA}
+      data={ARTICLES}
       renderItem={({item}) => {
         return (
-          <TouchableOpacity style={styles.buttonArticleItem}>
+          <TouchableOpacity 
+            style={styles.buttonArticleItem}
+            onPress={async() => {
+              await Linking.canOpenURL(item.link)
+              .then(function() {
+                Linking.openURL(item.link);
+              })
+              .catch(function(error) {
+                console.log(error);
+              });
+            }}
+          >
             <CustomText style={styles.textArticleItem}>{item.title}</CustomText>
           </TouchableOpacity>
         );

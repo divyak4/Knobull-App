@@ -1,7 +1,9 @@
 import React from "react";
-import { ImageBackground, Image, ScrollView, Text, View } from "react-native";
+import { ImageBackground, Image, ScrollView, View } from "react-native";
 import background from "./images/AboutPage.jpg";
 import logo from "./images/Knobull_Logo.png";
+import CustomText from "../components/CustomText";
+import CONSTANTS from "../Constants";
 
 function About() {
   return (
@@ -22,7 +24,7 @@ function About() {
           />
         </ImageBackground>
 
-        <Text style={{ padding: 20 }}>
+        <CustomText style={{ padding: 20, fontSize: CONSTANTS.TITLE_3_FONT_SIZE }}>
           Most academic search engines might start by proposing super results or
           recommending that you use them exclusively and fully trust their
           support. We think differently at Knobull. The process starts with you.
@@ -65,7 +67,7 @@ function About() {
           the better by offering native advertising design and delivery for
           like-minded customers who want to help build valued academic tools for
           the student population.
-        </Text>
+        </CustomText>
       </View>
     </ScrollView>
   );

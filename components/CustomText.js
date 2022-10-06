@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
+import react from 'react';
 
 
-export default CustomText = ({children, style}) => {
+const CustomText = ({children, style}) => {
     const [loaded] = useFonts({
         'ScopeOne-Regular': require('../assets/fonts/ScopeOne-Regular.ttf')
       });
@@ -18,3 +19,5 @@ export default CustomText = ({children, style}) => {
         </Text>
     );
 }
+
+export default memo(CustomText);

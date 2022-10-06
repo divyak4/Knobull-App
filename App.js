@@ -22,8 +22,8 @@ export default function App() {
         <Drawer.Navigator useLegacyImplementation={true} initialRouteName="Home">
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="About" component={About} />
-          <Drawer.Screen name="Message Board" component={MessageBoard} />
-          <Drawer.Screen name="Blog" component={Blog} />
+          {/* <Drawer.Screen name="Message Board" component={MessageBoard} /> */}
+          {/* <Drawer.Screen name="Blog" component={Blog} /> */}
           <Drawer.Screen name="Contact" component={Contact} />
           <Drawer.Screen name="Privacy" component={Privacy} />
           <Drawer.Screen name="Resources" component={Resources} />

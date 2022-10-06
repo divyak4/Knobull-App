@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Text, View, StyleSheet, Image,  } from "react-native";
+import { Text, View, StyleSheet, Image, Linking, Platform, Alert } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import CustomText from "../components/CustomText";
 import CONSTANTS from "../Constants";
@@ -18,11 +18,56 @@ function Contact() {
     setMessageMaxHeight(height);
   }, [messageMaxHeight]);
 
+  const sendMail = async() => {
+    if (firstName && lastName && email && message) {
+      let lineBreak
+      if (Platform.OS === 'ios') {
+        lineBreak = '\r\n'
+      } else {
+        lineBreak = '<br>'
+      }
+
+      const url = `mailto:lynnbentley@knobull.com?subject=Knobull App Contact ` +
+                  `Email - ${firstName} ${lastName}&body=first name: ${firstName}` +
+                  `${lineBreak}last name: ${lastName}${lineBreak}email: ${email}` +
+                  `${lineBreak}message: ${lineBreak}${message}`
+      await Linking.canOpenURL(url)
+      .then(function() {
+        Linking.openURL(url)
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+    } else {
+      Alert.alert(
+        "",
+        "Please fill in all fields.",
+        [
+          {
+            text: "OK",
+            style: "cancel"
+          }
+        ]
+      )
+    }
+  }
+
+  const launchLinkedIn = async() => {
+    const url = 'https://www.linkedin.com/company/knobull-inc/';
+    await Linking.canOpenURL(url)
+    .then(function() {
+      Linking.openURL(url)
+    })
+    .catch(function(error) {
+      console.log(error)
+    })
+  }
+
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.scrollView} scrollEnabled={false}>
         <View style={styles.viewTop}>
           <CustomText style={styles.textContact}>Contact Us</CustomText>
-          <TouchableOpacity style={styles.buttonLinkedIn}>
+          <TouchableOpacity style={styles.buttonLinkedIn} onPress={launchLinkedIn}>
             <CustomText style={styles.textLinkedIn}>** Check out our</CustomText>
             <Image source={require('./images/Linkedin.png')} style={styles.imageLinkedIn} />
             <CustomText style={styles.textLinkedIn}>!</CustomText>
@@ -47,6 +92,7 @@ function Contact() {
             style={styles.textInputNormal}
             value={email}
             onChangeText={setEmail}
+            autoCapitalize='none'
           />
           {/* message */}
           <CustomText style={styles.textTitle}>Message</CustomText>
@@ -68,7 +114,7 @@ function Contact() {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.buttonSubmit}>
+        <TouchableOpacity style={styles.buttonSubmit} onPress={sendMail}>
           <CustomText style={styles.textSubmit}>
             Submit
           </CustomText>
@@ -82,6 +128,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    paddingHorizontal: 10,
   },
   buttonSubmit: {
     backgroundColor: 'rgba(0, 116, 181, 1)',
